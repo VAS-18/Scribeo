@@ -1,4 +1,10 @@
 import Sidebar from "@/components/sidebar";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Scribe",
+  icons: "/globe.svg"
+}
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
