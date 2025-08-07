@@ -14,8 +14,8 @@ type Message = {
 
 const Scribe = () => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState<String>("");
-  const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const [input, setInput] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -32,14 +32,17 @@ const Scribe = () => {
     setInput("");
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/render", {
-        message: input,
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/render`,
+        {
+          message: input,
+        }
+      );
 
       const llmMessage: Message = response.data;
       setMessages((p) => [...p, llmMessage]);
-      console.log("reaching to the end")
-      setIsLoading(false)
+      console.log("reaching to the end");
+      setIsLoading(false);
     } catch (error) {
       console.error("Failed to fetch from render Api");
 
@@ -49,7 +52,7 @@ const Scribe = () => {
       };
 
       setMessages((p) => [...p, errorMess]);
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
@@ -91,20 +94,23 @@ const Scribe = () => {
 
           {isLoading && (
             <div>
-              <Image src={"/3-dots-bounce.svg"} width={30} height={30} alt="Loader"/>
+              <Image
+                src={"/3-dots-bounce.svg"}
+                width={30}
+                height={30}
+                alt="Loader"
+              />
             </div>
           )}
-
         </div>
       </div>
 
       {/* Input Form Area */}
       <InputArea
-        input={input} 
-        setInput={setInput} 
-        handleSubmit={handleSubmit} 
+        input={input}
+        setInput={setInput}
+        handleSubmit={handleSubmit}
       />
-      
     </div>
   );
 };
