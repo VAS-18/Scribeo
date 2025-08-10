@@ -13,24 +13,47 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const data = [
-    { id: "1", title: "Chat #1" },
-    { id: "2", title: "Chat #2" },
-    { id: "3", title: "Chat #3" },
-    { id: "4", title: "Chat #4" },
-    { id: "5", title: "Chat #5" },
-    { id: "1", title: "Chat #1" },
+    { id: "a", title: "Meeting Notes - Project Apollo" },
+    { id: "b", title: "Weekly Report: Marketing Updates" },
+    { id: "c", title: "Customer Feedback - Q3 Review" },
+    { id: "d", title: "Team Goals and Milestones" },
+    { id: "e", title: "Product Roadmap - 2025 Vision" },
+    { id: "a", title: "Meeting Notes - Project Apollo" },
+    { id: "a", title: "Meeting Notes - Project Apollo" },
+    { id: "b", title: "Weekly Report: Marketing Updates" },
+    { id: "c", title: "Customer Feedback - Q3 Review" },
+    { id: "d", title: "Team Goals and Milestones" },
+    { id: "e", title: "Product Roadmap - 2025 Vision" },
+    { id: "a", title: "Meeting Notes - Project Apollo" },
+    { id: "a", title: "Meeting Notes - Project Apollo" },
+    { id: "b", title: "Weekly Report: Marketing Updates" },
+    { id: "c", title: "Customer Feedback - Q3 Review" },
+    { id: "d", title: "Team Goals and Milestones" },
+    { id: "e", title: "Product Roadmap - 2025 Vision" },
+    { id: "a", title: "Meeting Notes - Project Apollo" },
+    { id: "a", title: "Meeting Notes - Project Apollo" },
+    { id: "b", title: "Weekly Report: Marketing Updates" },
+    { id: "c", title: "Customer Feedback - Q3 Review" },
+    { id: "d", title: "Team Goals and Milestones" },
+    { id: "e", title: "Product Roadmap - 2025 Vision" },
+    { id: "a", title: "Meeting Notes - Project Apollo" },
   ];
 
   return (
-    <aside>
+    <aside className="fixed inset-y-0 left-0 z-50">
       <div
         className={`${
           isCollapsed ? "w-64" : "w-32"
-        } h-screen p-4 flex flex-col border-r bg-gray-500 transition-all duration-300 ease-in-out`}
+        } h-screen p-4 flex flex-col gap-2 transition-all duration-300 ease-in-out overflow-hidden bg-white/10
+           `}
       >
-        <div className="flex">
-          <span>Logo</span>
-          <Button variant="ghost" onClick={() => setIsCollapsed(!isCollapsed)}>
+        <div className="flex items-center justify-between">
+          <span className="font-semibold tracking-wide">Logo</span>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+          >
             {isCollapsed ? (
               <ArrowBendDownLeftIcon />
             ) : (
@@ -38,28 +61,40 @@ const Sidebar = () => {
             )}
           </Button>
         </div>
+
         {/* NEW CHAT BUTTON */}
         <div className="mt-4">
-          {isCollapsed && <Button variant="outline">New Chat</Button>}
+          {isCollapsed && (
+            <Button
+              variant="outline"
+              className="w-full border-white/20 bg-white/5 hover:bg-white/10"
+            >
+              New Chat
+            </Button>
+          )}
         </div>
+
         {/* HISTORY */}
         {isCollapsed && (
-          <span className=" text-accent-foreground mt-10">Chats</span>
+          <span className="mt-6 text-xs uppercase tracking-wider text-foreground/60">
+            Chats
+          </span>
         )}
-        <div className="flex-grow flex flex-col overflow-y-auto">
+
+        <div className="flex-grow gap-5 mt-2 flex flex-col overflow-y-auto no-scrollbar ">
           {isCollapsed &&
-            data.map((c) => (
+            data.map((c, i) => (
               <motion.div
-                key={c.id}
-                initial={{ opacity: 0.5, x: 0, y: 0 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0.5, x: -10 }}
+                key={`${c.id}-${i}`}
+                initial={{ opacity: 0.6 }}
+                animate={{ opacity: 1 }}
               >
                 <Link
                   href={`/scribe/${c.id}`}
-                  className="flex flex-col p-2 rounded-md hover:bg-gray-200 "
+                  className="flex w-full p-2
+                    hover:bg-gray-800/30 hover:rounded-2xl "
                 >
-                  {c.title}
+                  <span className=" truncate">{c.title}</span>
                 </Link>
               </motion.div>
             ))}

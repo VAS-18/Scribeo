@@ -14,8 +14,7 @@ const InputArea: React.FC<InputAreaProps> = ({
   handleSubmit,
 }) => {
   return (
-    <div className="p-4 bg-background border-t">
-      <div className="max-w-3xl mx-auto">
+      <div className="p-4 min-w-2xl">
         <form className="relative" onSubmit={handleSubmit}>
           <TextareaAutosize
             placeholder="Write Your Prompt here"
@@ -23,19 +22,18 @@ const InputArea: React.FC<InputAreaProps> = ({
             maxRows={6}
             value={input as string}
             onChange={(e) => setInput(e.target.value)}
-            className="w-full p-3 pr-12 resize-none rounded-lg border shadow-sm focus:outline-none"
-          />
+            className="w-full p-5 resize-none rounded-full border shadow-sm focus:outline-none bg-background/80 backdrop-blur-3xl supports-[backdrop-filter]:bg-background/30"/>
+
           <Button
             type="submit"
             size="icon"
-            className="absolute top-1/2 right-3 transform -translate-y-1/2"
+            className="absolute top-4 rounded-full right-4  bg-white backdrop-blur-3xl "
             disabled={!input.trim()}
           >
-            <CaretCircleUpIcon size={24} />
+            <CaretCircleUpIcon size={30} />
           </Button>
         </form>
       </div>
-    </div>
   );
 };
 

@@ -35,7 +35,7 @@ const SignInPage = () => {
     <div className="h-screen w-full">
       <div className="flex h-full">
         {/* Left Side */}
-        <div className="relative w-1/2 bg-gradient-to-b from-cyan-200 via-cyan-500 via-20% to-cyan-900  overflow-hidden">
+        <div className="relative w-1/2 bg-gradient-to-b from-cyan-200 via-cyan-500 via-20% to-cyan-900 overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_110%_at_bottom,_var(--tw-gradient-from)_50%,_var(--tw-gradient-to)_100%)] from-black"></div>
 
           <Noise
@@ -66,9 +66,9 @@ const SignInPage = () => {
                 </svg>
                 <span className="text-2xl">Scribeo</span>
               </div>
-              <span className="text-4xl font-bold">Welcome Back</span>
+              <span className="text-4xl font-bold">Get Started with Us</span>
               <span className="text-lg opacity-90">
-                sign in to continue your journey
+                enter the required details to register
               </span>
             </div>
           </div>
@@ -81,7 +81,7 @@ const SignInPage = () => {
             className="space-y-6 max-w-md w-full"
             onSubmit={form.handleSubmit(handleSubmit)}
           >
-            <h2 className="text-3xl font-bold text-center">Sign In</h2>
+            <h2 className="text-3xl font-bold text-center">Sign Up</h2>
 
             <div className="flex gap-4 w-full">
               <Button
@@ -143,6 +143,34 @@ const SignInPage = () => {
               <Separator className="flex-1" />
             </div>
 
+            {/* Name Fields */}
+
+            <div className="flex gap-4 w-full">
+              <div className="flex-1">
+                <label className="block text-sm text-muted-foreground mb-2">
+                  First Name
+                </label>
+
+                <Input
+                  type="text"
+                  placeholder="eg: Sarah"
+                  className="focus-visible:ring-1 focus-visible:ring-offset-0"
+                />
+              </div>
+
+              <div className="flex-1">
+                <label className="block text-sm text-muted-foreground mb-2">
+                  Last Name
+                </label>
+
+                <Input
+                  type="text"
+                  placeholder="eg: Palin"
+                  className="focus-visible:ring-1 focus-visible:ring-offset-0"
+                />
+              </div>
+            </div>
+
             <Input
               type="text"
               placeholder="Email"
@@ -158,17 +186,8 @@ const SignInPage = () => {
             />
 
             <Button type="submit" className="w-full">
-              Sign In
+              Sign Up
             </Button>
-
-            <div className="text-center">
-              <span className="text-sm text-muted-foreground">
-                Don't have an account?{" "}
-                <a href="/sign-up" className="text-primary hover:underline">
-                  Sign up
-                </a>
-              </span>
-            </div>
           </form>
         </div>
       </div>
