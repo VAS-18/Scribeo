@@ -9,10 +9,10 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-// const cabinet = localFont({
-//   src: '/public/fonts/CabinetGrotesk-Variable.woff2',
-//   variable: '--font-cabinet'
-// })
+const cabinet = localFont({
+  src: "../fonts/CabinetGrotesk-Variable.woff2",
+  variable: "--font-cabinet",
+});
 
 
 const geistMono = Geist_Mono({
@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${cabinet.variable} antialiased`}
       >
         <ThemeProvider
             attribute="class"

@@ -17,12 +17,12 @@ const InputArea: React.FC<InputAreaProps> = ({
       <div className="p-4 min-w-2xl">
         <form className="relative" onSubmit={handleSubmit}>
           <TextareaAutosize
-            placeholder="Write Your Prompt here"
+            placeholder="What are we scribing today?"
             rows={1}
             maxRows={6}
             value={input as string}
             onChange={(e) => setInput(e.target.value)}
-            className="w-full p-5 resize-none rounded-full border shadow-sm focus:outline-none bg-background/80 backdrop-blur-3xl supports-[backdrop-filter]:bg-background/30"/>
+            className="w-full p-5 resize-none rounded-full border shadow-sm focus:outline-none bg-background/80 backdrop-blur-3xl supports-[backdrop-filter]:bg-background/30 font-main font-bold"/>
 
           <Button
             type="submit"

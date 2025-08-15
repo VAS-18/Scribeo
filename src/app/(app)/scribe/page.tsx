@@ -61,13 +61,16 @@ const Scribe = () => {
 
   if (defaultState) {
     return (
-      <div className="relative min-h-dvh flex items-center justify-center overflow-hidden">
+      <div className="relative min-h-dvh flex flex-col items-center justify-center overflow-hidden">
+
         <div className="pointer-events-none absolute inset-0 z-10">
           <div
             className="absolute inset-0 animate-gradient bg-[radial-gradient(60%_60%_at_80%_-10%,rgba(34,211,238,0.22),transparent_60%),radial-gradient(70%_70%_at_0%_90%,rgba(56,189,248,0.18),transparent_60%),radial-gradient(50%_50%_at_50%_50%,rgba(20,184,166,0.12),transparent_60%)]"
           />
         </div>
-
+        <div className="font-main text-2xl mb-10">
+          Hi, USER
+        </div>
         <div className="w-full max-w-xl">
           <InputArea
             input={input}

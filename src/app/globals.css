@@ -41,6 +41,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --font-main: var(--font-cabinet);
 }
 
 :root {
@@ -124,6 +125,10 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.65 0 0);
 }
+
+
+
+
 
 /* Subtle float animations for background blobs */
 @keyframes float {
