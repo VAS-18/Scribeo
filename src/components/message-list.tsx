@@ -2,18 +2,13 @@ import { Message } from "@/types/types";
 import MessageBubble from "./message-bubble";
 
 const MessageList = ({
-  messages,
+  messages = [],
   isLoading,
 }: {
   messages: Message[];
   isLoading?: boolean;
 }) => {
-  if (messages.length === 0) {
-    return <div>
-        
-    </div>;
-  }
-
+  
   return (
     <div>
       {messages.map((m, i) => (

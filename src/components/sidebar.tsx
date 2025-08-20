@@ -99,6 +99,13 @@ const Sidebar = () => {
               </motion.div>
             ))}
         </div>
+        <div
+          className={`bg-red-500 ${
+            isCollapsed ? "flex justify-start" : "flex justify-center"
+          } transition-all duration-300 ease-in-out`}
+        >
+          {isCollapsed ? <div>meow</div> : <div className=" ">img</div>}
+        </div>
       </div>
     </aside>
   );

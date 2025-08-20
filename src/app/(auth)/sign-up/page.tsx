@@ -8,6 +8,7 @@ import { signUpSchema, TSignUpSchema } from "@/lib/validators/authValidator";
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
 
 const SignUpPage = () => {
   const [isPending, setPending] = useState<boolean>(false);
@@ -27,8 +28,7 @@ const SignUpPage = () => {
   });
 
   const handleSubmit = async (values: TSignUpSchema) => {
-    console.log(values);
-
+    setPending(true);
     authClient.signUp.email(
       {
         email: values.email,
@@ -38,10 +38,13 @@ const SignUpPage = () => {
 
       {
         onSuccess: () => {
-          router.push("/dash");
+          router.push("/scribe");
+          setPending(false);
         },
         onError: ({ error }) => {
-          alert(error.message);
+          setError(error.message);
+          toast.error(`${error.message}`);
+          setPending(false);
         },
       }
     );
@@ -92,12 +95,18 @@ const SignUpPage = () => {
 
         {/* Right Side */}
         <div className="w-full md:w-1/2 flex items-center justify-center p-10">
-          <SignUpForm
-            form={form}
-            onSubmit={handleSubmit}
-            isPending={isPending}
-            error={error}
-          />
+          <div className="w-full max-w-md">
+            {error && (
+              <div className="mb-4 p-3 rounded-xl bg-foreground/30 text-red-700 font-bold border border-red-300 border-dashed text-center">
+                {error}
+              </div>
+            )}
+            <SignUpForm
+              form={form}
+              onSubmit={handleSubmit}
+              isPending={isPending}
+            />
+          </div>
         </div>
       </div>
     </div>
