@@ -1,50 +1,60 @@
 import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { PrismaClient } from "../../../../../generated/prisma";
+import { headers } from "next/headers";
 
-const prisma = new PrismaClient();
 
-export async function GET(
-  req: NextRequest,
+export async function POST(
+  req: Request,
   { params }: { params: { chatId: string } }
 ) {
+  const prisma = new PrismaClient();
+
   try {
     const session = await auth.api.getSession({
       headers: await headers(),
     });
+    const { chatId } = params;
 
-    if (!session?.user) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const userId = session.user.id;
-    const { chatId } = params;
-
-    if (!chatId) {
+    const { message } = await req.json();
+    if (!message) {
       return NextResponse.json(
-        { error: "Chat ID parameter is missing" },
+        { error: "Message is required" },
         { status: 400 }
       );
     }
 
-    const chat = await prisma.chat.findFirst({
-      where: {
-        id: chatId,
-        userId: userId,
-      },
-      include: {
-        Message: true,
+    
+    await prisma.chat.findFirstOrThrow({
+      where: { id: chatId, userId: session.user.id },
+    });
+
+    
+    await prisma.message.create({
+      data: { role: "User", content: message, chatId },
+    });
+    // TODO: AI service here to get the next response
+    await prisma.message.create({
+      data: {
+        role: "AI",
+        content: "This is the AI's follow-up response.",
+        chatId,
       },
     });
 
-    if (!chat) {
-      return NextResponse.json({ error: "Chat not found" }, { status: 404 });
-    }
+ 
+    const updatedMessages = await prisma.message.findMany({
+      where: { chatId },
+      orderBy: { createdAt: "asc" },
+    });
 
-    return NextResponse.json(chat, { status: 200 });
+    return NextResponse.json({ messages: updatedMessages });
   } catch (error) {
-    console.error("Failed to fetch chat:", error);
+    console.error("Failed to post message:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

@@ -2,7 +2,14 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/ui/theme-toggle";
 import Link from "next/link";
 
+
+
 export default function Home() {
+
+
+
+
+
   return (
     <div className=" h-screen flex items-center justify-center gap-10 ">
       <div>

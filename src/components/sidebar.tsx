@@ -1,43 +1,39 @@
 "use client";
-
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowBendDownLeftIcon,
   ArrowBendDownRightIcon,
 } from "@phosphor-icons/react/dist/ssr";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+
+type Chat = {
+  id: string;
+  title: string;
+};
 
 const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+  const [chat, setChat] = useState<Chat[]>([]);
+  const router = useRouter();
 
-  const data = [
-    { id: "a", title: "Meeting Notes - Project Apollo" },
-    { id: "b", title: "Weekly Report: Marketing Updates" },
-    { id: "c", title: "Customer Feedback - Q3 Review" },
-    { id: "d", title: "Team Goals and Milestones" },
-    { id: "e", title: "Product Roadmap - 2025 Vision" },
-    { id: "a", title: "Meeting Notes - Project Apollo" },
-    { id: "a", title: "Meeting Notes - Project Apollo" },
-    { id: "b", title: "Weekly Report: Marketing Updates" },
-    { id: "c", title: "Customer Feedback - Q3 Review" },
-    { id: "d", title: "Team Goals and Milestones" },
-    { id: "e", title: "Product Roadmap - 2025 Vision" },
-    { id: "a", title: "Meeting Notes - Project Apollo" },
-    { id: "a", title: "Meeting Notes - Project Apollo" },
-    { id: "b", title: "Weekly Report: Marketing Updates" },
-    { id: "c", title: "Customer Feedback - Q3 Review" },
-    { id: "d", title: "Team Goals and Milestones" },
-    { id: "e", title: "Product Roadmap - 2025 Vision" },
-    { id: "a", title: "Meeting Notes - Project Apollo" },
-    { id: "a", title: "Meeting Notes - Project Apollo" },
-    { id: "b", title: "Weekly Report: Marketing Updates" },
-    { id: "c", title: "Customer Feedback - Q3 Review" },
-    { id: "d", title: "Team Goals and Milestones" },
-    { id: "e", title: "Product Roadmap - 2025 Vision" },
-    { id: "a", title: "Meeting Notes - Project Apollo" },
-  ];
+  useEffect(() => {
+    const getAllChats = async () => {
+      const response = await axios.get("/api/chat/all");
+
+      const data = response.data.chats.map((c: any) => ({
+        id: c.id,
+        title: c.title,
+      }));
+
+      setChat(data);
+    };
+    getAllChats();
+  }, []);
+
 
   return (
     <aside className="fixed inset-y-0 left-0 z-50">
@@ -68,6 +64,7 @@ const Sidebar = () => {
             <Button
               variant="outline"
               className="w-full border-white/20 bg-white/5 hover:bg-white/10"
+              onClick={() => router.push("/scribe")}
             >
               New Chat
             </Button>
@@ -83,7 +80,7 @@ const Sidebar = () => {
 
         <div className="flex-grow gap-5 mt-2 flex flex-col overflow-y-auto no-scrollbar ">
           {isCollapsed &&
-            data.map((c, i) => (
+            chat.map((c, i) => (
               <motion.div
                 key={`${c.id}-${i}`}
                 initial={{ opacity: 0.6 }}
